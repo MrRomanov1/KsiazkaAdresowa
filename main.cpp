@@ -271,9 +271,10 @@ int usunOsobe(vector <Osoba> &osoby, int iloscOsob) {
 
             cin >> wybor;
             if (wybor == 't') {
-                for (vector <Osoba>:: iterator i = osoby.begin(); i != osoby.end() ; i++) {
-                    if (i -> id == idDoEdycji) {
-                        osoby.erase(i);
+                for (vector <Osoba>:: iterator itr = osoby.begin(); itr != osoby.end() ; itr++) {
+                    if (itr -> id == idDoEdycji) {
+                        osoby.erase(itr);
+                        itr--;
                     }
                 }
                 iloscOsob--;
