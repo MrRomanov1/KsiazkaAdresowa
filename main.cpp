@@ -342,7 +342,6 @@ int wczytajUzytkownikow (vector <Uzytkownik> &uzytkownicy) {
             uzytkownicy.push_back(temp);
         }
         nr_linii ++;
-
     }
     plik.close();
     return iloscUzytkownikow;
@@ -411,9 +410,7 @@ string sprawdzPoprawnoscEmail() {
             }
             i++;
         }
-
         j = pozycjaMalpy;
-
         while (j < dlugoscEmaila) {
             if (email[j] == '.') {
                 iloscKropek++;
@@ -639,17 +636,14 @@ int utworzOsobe(vector <Osoba> &osoby, int iloscOsob, int idZalogowanegoUzytkown
     } else {
         wprowadzanaOsoba.idAdresata = sprawdzOstatnieID() + 1;
     }
-
     wprowadzanaOsoba.idUzytkownika = idZalogowanegoUzytkownika;
 
     osoby.push_back(wprowadzanaOsoba);
 
     zapiszNowaOsobeDoPliku(wprowadzanaOsoba);
     iloscOsob++;
-
     cout << "Dodano " << wprowadzanaOsoba.imie << " "<< wprowadzanaOsoba.nazwisko << endl;
     Sleep(2000);
-
     return iloscOsob;
 }
 
@@ -666,7 +660,6 @@ int wczytajOsoby(vector <Osoba> &osoby,int idZalogowanegoUzytkownika) {
     if (plik.good()==false) {
         return iloscOsob;
     }
-
     while (getline(plik,linia,'|')) {
         if (linia == "") {
             return iloscOsob;
@@ -696,10 +689,8 @@ int wczytajOsoby(vector <Osoba> &osoby,int idZalogowanegoUzytkownika) {
         }
 
         if (nr_linii == 7) {
-
             iloscOsob++;
             nr_linii = 0;
-
             if (temp.idUzytkownika == idZalogowanegoUzytkownika) {
                 osoby.push_back(temp);
             }
@@ -728,7 +719,6 @@ void wyszukajPoImieniu(vector <Osoba> osoby) {
             licznik++;
         }
     }
-
     if (licznik == 0) {
         cout << "Nie znaleziono osob o takim imieniu.";
         Sleep(3000);
@@ -755,7 +745,6 @@ void wyszukajPoNazwisku(vector <Osoba> osoby) {
             licznik++;
         }
     }
-
     if (licznik == 0) {
         cout << "Nie znaleziono osob o takim nazwisku.";
         Sleep(3000);
@@ -764,7 +753,7 @@ void wyszukajPoNazwisku(vector <Osoba> osoby) {
     }
 }
 
-int main() {
+void wyswietlMenu() {
 
     vector <Osoba> osoby;
     vector <Uzytkownik> uzytkownicy;
@@ -799,6 +788,7 @@ int main() {
                 exit(0);
             }
         } else {
+
             system("cls");
             cout << "Witaj w ksiazce adresowej. Wybierz funkcje."  << endl;
             cout << "1. Wprowadzanie danych" << endl;
@@ -810,7 +800,6 @@ int main() {
             cout << "7. Zmien haslo"<<endl;
             cout << "8. Wyloguj"<<endl;
             cout << "9. Zakoncz program" << endl;
-
 
             cin >> wybor;
 
@@ -836,10 +825,17 @@ int main() {
             } else if (wybor == '7') {
                 //edytujOsobe (osoby, iloscOsob);
                 ;
+            } else if (wybor == '8') {
+                //idZalogowanegoUzytkownika = wylogujUzytkownika();
+                ;
             } else if (wybor == '9') {
                 exit(0);
             }
         }
     }
+}
+
+int main() {
+    wyswietlMenu();
     return 0;
 }
