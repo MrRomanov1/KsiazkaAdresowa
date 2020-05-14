@@ -774,6 +774,52 @@ int wczytajUzytkownikow (vector <Uzytkownik> &uzytkownicy) {
     return iloscUzytkownikow;
 }
 
+void zmienHasloUzytkownika(vector <Uzytkownik> &uzytkownicy, int idZalogowanegoUzytkownika, int iloscUzytkownikow) {
+
+    system("cls");
+    string noweHaslo;
+    cout << "Wprowadz nowe haslo: " << endl;
+    while(true) {
+        cin >> noweHaslo;
+        for (vector <Uzytkownik> :: iterator itr = uzytkownicy.begin(); itr != uzytkownicy.end(); itr++) {
+            if (itr -> idUzytkownika == idZalogowanegoUzytkownika) {
+                if (itr -> haslo == noweHaslo) {
+                    system("cls");
+                    cout << "Haslo musi sie roznic od poprzedniego. Wprowadz nowe haslo ponownie." << endl;
+                } else {
+                    itr -> haslo = noweHaslo;
+                    zapiszUzytkownikaDoPliku(uzytkownicy, iloscUzytkownikow);
+                    cout << "Haslo zostalo zmienione."<< endl;
+                    Sleep(2000);
+                    return;
+                }
+            }
+        }
+    }
+}
+
+int wylogujUzytkownika (vector <Osoba> &osoby, int idZalogowanegoUzytkownika) {
+
+    char wybor;
+    cout << "Czy na pewno chcesz sie wylogowac (t/n)?" << endl;
+
+    while (true) {
+        cin >> wybor;
+        if (wybor == 't') {
+            idZalogowanegoUzytkownika = 0;
+            osoby.clear();
+            cout << "Poprawnie wylogowano.";
+            Sleep(2000);
+            return idZalogowanegoUzytkownika;
+        } else if (wybor == 'n') {
+            return idZalogowanegoUzytkownika;
+        } else {
+            system("cls");
+            cout << "Niepoprawny wybor." << endl << "Czy na pewno chcesz sie wylogowac (t/n)?" << endl;
+        }
+    }
+}
+
 void wyswietlMenuGlowne() {
     system("cls");
     cout << "Witaj w ksiazce adresowej. Wybierz funkcje."  << endl;
@@ -815,14 +861,11 @@ int main() {
 
             if (wybor == '1') {
                 iloscUzytkownikow = rejestracja(uzytkownicy,iloscUzytkownikow);
-
             } else if (wybor == '2') {
                 idZalogowanegoUzytkownika = logowanie(uzytkownicy, iloscUzytkownikow);
-
                 if (idZalogowanegoUzytkownika !=0) {
                     iloscOsob = wczytajOsoby (osoby, idZalogowanegoUzytkownika);
                 }
-
             } else if (wybor == '9') {
                 exit(0);
             }
@@ -834,27 +877,20 @@ int main() {
                 iloscOsob = utworzOsobe(osoby, iloscOsob, idZalogowanegoUzytkownika);
             } else if (wybor == '2') {
                 wyszukajPoImieniu(osoby);
-
             } else if (wybor == '3') {
                 wyszukajPoNazwisku(osoby);
-
             } else if (wybor == '4') {
                 wyswietlOsoby(osoby);
                 cout << "Nacisnij dowolny przycisk, aby kontynuowac." << endl;
                 getch();
-
             } else if (wybor == '5') {
                 iloscOsob = usunOsobe(osoby, iloscOsob);
-
             } else if (wybor == '6') {
                 edytujOsobe (osoby);
-
             } else if (wybor == '7') {
-                //edytujOsobe (osoby, iloscOsob);
-                ;
+                zmienHasloUzytkownika (uzytkownicy, idZalogowanegoUzytkownika, iloscUzytkownikow);
             } else if (wybor == '8') {
-                //idZalogowanegoUzytkownika = wylogujUzytkownika();
-                ;
+                idZalogowanegoUzytkownika = wylogujUzytkownika(osoby,idZalogowanegoUzytkownika);
             } else if (wybor == '9') {
                 exit(0);
             }
