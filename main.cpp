@@ -711,40 +711,54 @@ int main() {
             wyswietlMenuLogowania();
             cin >> wybor;
 
-            if (wybor == '1') {
+            switch (wybor) {
+            case '1':
                 iloscUzytkownikow = Uzytkownik::rejestracja(uzytkownicy,iloscUzytkownikow);
-            } else if (wybor == '2') {
+                break;
+            case '2':
                 idZalogowanegoUzytkownika = Uzytkownik::logowanie(uzytkownicy, iloscUzytkownikow);
                 if (idZalogowanegoUzytkownika !=0) {
                     iloscOsob = wczytajOsoby (osoby, idZalogowanegoUzytkownika);
                 }
-            } else if (wybor == '9') {
+                break;
+            case '9':
                 exit(0);
+                break;
             }
         } else {
             wyswietlMenuGlowne();
             cin >> wybor;
 
-            if (wybor == '1') {
+            switch (wybor) {
+            case '1':
                 iloscOsob = utworzOsobe(osoby, iloscOsob, idZalogowanegoUzytkownika);
-            } else if (wybor == '2') {
+                break;
+            case '2':
                 wyszukajPoImieniu(osoby);
-            } else if (wybor == '3') {
+                break;
+            case '3':
                 wyszukajPoNazwisku(osoby);
-            } else if (wybor == '4') {
+                break;
+            case '4':
                 wyswietlOsoby(osoby);
                 cout << "Nacisnij dowolny przycisk, aby kontynuowac." << endl;
                 getch();
-            } else if (wybor == '5') {
+                break;
+            case '5':
                 iloscOsob = usunOsobe(osoby, iloscOsob);
-            } else if (wybor == '6') {
+                break;
+            case '6':
                 edytujOsobe (osoby);
-            } else if (wybor == '7') {
+                break;
+            case '7':
                 zmienHasloUzytkownika (uzytkownicy, idZalogowanegoUzytkownika, iloscUzytkownikow);
-            } else if (wybor == '8') {
+                break;
+            case '8':
                 idZalogowanegoUzytkownika = wylogujUzytkownika(osoby,idZalogowanegoUzytkownika);
-            } else if (wybor == '9') {
+                break;
+            case '9':
                 exit(0);
+                break;
             }
         }
     }
